@@ -5,12 +5,14 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import PrivateRoute from './components/PrivateRoute'
 import LandingPage from './components/LandingPage'
+import Navbar from './components/Navbar'
 
 
 function App() {
   return (
     <BrowserRouter>
       <div className='font-Nunito'>
+        <Navbar />
         <Routes>
           <Route exact path='/' element={<LandingPage />} />
           <Route path='/dashboard' element={<PrivateRoute><Dashboard /> </PrivateRoute>} />
