@@ -8,11 +8,11 @@ import Signup from './components/Signup'
 function App() {
   return (
     <BrowserRouter>
-      <div>
+      <div className='font-Nunito'>
         <Routes>
-          <Route path='/' element={<Dashboard />} />
-          <Route path='/Login' element={<Login />} />
-          <Route path='/Signup' element={<Signup />} />
+          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
         </Routes>
       </div>
     </BrowserRouter>
