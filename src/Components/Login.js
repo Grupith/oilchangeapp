@@ -27,7 +27,7 @@ export default function Login() {
   }
   return (
     <div className='bg-gray-100 h-screen flex justify-center'>
-      <div className='bg-white max-w-sm m-auto border rounded-xl p-12 shadow-sm'>
+      {!loading && <div className='bg-white max-w-sm m-auto border rounded-xl p-12 shadow-sm'>
         <form onSubmit={handleSubmit} className='space-y-6'>
           <h1 className='font-bold text-4xl text-center text-gray-700 m-3'>Login</h1>
             <div>
@@ -38,10 +38,11 @@ export default function Login() {
                 <label htmlFor='Password' className='text-lg text-gray-400'>Password </label>
                 <input onChange={e => setPassword(e.target.value)} required type='password' name='Password' autoComplete='off' className='border border-gray-300 rounded-md text-lg w-full px-3 py-1 bg-gray-100' />
               </div>
+              {error && <p className='flex justify-center'>{error}</p>}
               <button type='submit' className='text-lg text-white bg-orange-500 rounded-md py-2 w-full'>Login</button>
               <p className='text-center text-md text-gray-700'>Don't have an account? <Link to='/signup' className='text-orange-500'>Sign Up</Link> </p>
         </form>
-      </div>
+      </div>}
     </div>
   )
 }
