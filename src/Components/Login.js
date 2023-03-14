@@ -9,13 +9,13 @@ export default function Login() {
           <h1 className='font-bold text-4xl text-center text-gray-700 m-3'>Login</h1>
             <div>
               <label htmlFor='Email' className='text-lg text-gray-400'>Email </label>
-              <input type='email' name='Email' autoComplete='off' className='border rounded-md text-xl w-full px-3 py-1 bg-gray-100'  />
+              <input required type='email' name='Email' autoComplete='off' className='border border-gray-300 rounded-md text-lg w-full px-3 py-1 bg-gray-100'  />
             </div>
               <div>
                 <label htmlFor='Password' className='text-lg text-gray-400'>Password </label>
-                <input type='password' name='Password' autoComplete='off' className='border rounded-md text-xl w-full px-3 py-1 bg-gray-100' />
+                <input required type='password' name='Password' autoComplete='off' className='border border-gray-300 rounded-md text-lg w-full px-3 py-1 bg-gray-100' />
               </div>
-              <button type='submit' className='text-xl text-white bg-orange-500 rounded-md py-2 w-full'>Submit</button>
+              <button type='submit' className='text-lg text-white bg-orange-500 rounded-md py-2 w-full'>Login</button>
               <p className='text-center text-md text-gray-700'>Don't have an account? <Link to='/signup' className='text-orange-500'>Sign Up</Link> </p>
         </form>
       </div>
