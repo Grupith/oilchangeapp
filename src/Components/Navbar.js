@@ -42,10 +42,10 @@ export default function Navbar() {
   return (
     <nav>
         <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between h-16 px-10">
+        <div className="relative flex items-center justify-between h-16 px-10">
             <div className="flex items-center">
                 <div>
-                    <Link to='/' className="font-bold text-xl">TrackMyOilChange</Link>
+                    <Link to='/' className="font-semibold text-xl">TrackMyOilChange</Link>
                 </div>
             </div>
             <div className="flex items-center">
@@ -58,7 +58,7 @@ export default function Navbar() {
                 </button>
 
                 {showDropdown && 
-                    <div ref={dropdownRef} className="origin-top-right absolute right-0 mt-28 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                    <div ref={dropdownRef} className="origin-top-right absolute right-0 mt-40 mr-4 w-48 rounded-md shadow-lg bg-white">
                         <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
                             <span className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 line-through cursor-pointer" role="menuitem">Settings</span>
                             <span onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer" role="menuitem">Logout</span>
