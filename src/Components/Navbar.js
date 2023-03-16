@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link , useNavigate } from 'react-router-dom'
 import { useAuth } from '../AuthContext'
-import {BsFillMoonStarsFill} from 'react-icons/bs'
+import { BsFillMoonStarsFill } from 'react-icons/bs'
 
 export default function Navbar() { 
 
-    const { logout } = useAuth()
+    const { logout, currentUser } = useAuth()
     const navigate = useNavigate()
     const dropdownRef = useRef(null)
 
@@ -41,14 +41,15 @@ export default function Navbar() {
 
   return (
     <nav>
-        <div className="max-w-7xl mx-auto">
+        <div className="mx-2">
         <div className="relative flex items-center justify-between h-16 px-10">
             <div className="flex items-center">
                 <div>
-                    <Link to='/' className="font-semibold text-xl">TrackMyOilChange</Link>
+                    <Link to='/' className="font-bold text-xl">TrackMyOilChange</Link>
                 </div>
             </div>
             <div className="flex items-center">
+                <p className='text-lg mr-6'>{currentUser && currentUser.email}</p>
                 <BsFillMoonStarsFill className='text-lg cursor-pointer mr-6'/>
                 <button onClick={toggleDropdown} className="p-1 rounded-full hover:text-gray-400 focus:text-gray-400 focus:outline-none">
                     <span className="sr-only">Open user menu</span>
@@ -60,6 +61,7 @@ export default function Navbar() {
                 {showDropdown && 
                     <div ref={dropdownRef} className="origin-top-right absolute right-0 mt-40 mr-4 w-48 rounded-md shadow-lg bg-white">
                         <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
+                            <Link to='/dashboard' onClick={() => setShowDropdown(false)}className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer" role="menuitem">Dashboard</Link>
                             <span className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 line-through cursor-pointer" role="menuitem">Settings</span>
                             <span onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer" role="menuitem">Logout</span>
                         </div>
