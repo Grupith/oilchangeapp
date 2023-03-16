@@ -48,7 +48,7 @@ export default function Signup() {
                 <label htmlFor='confirmPassword' className='text-lg text-gray-400'>Confirm Password </label>
                 <input onChange={e => setConfirmPassword(e.target.value)} required type='password' name='confirmPassword' autoComplete='off' className='border border-gray-300 rounded-md text-lg w-full px-3 py-1 bg-gray-100' />
               </div>
-              {error && <p className='flex justify-center text-red-500'>{error}</p>}
+              {error && <p className='flex justify-center text-red-500 italic'>{error}</p>}
               <button type='submit' className='text-lg text-white bg-orange-500 rounded-md py-2 w-full'>Create Account</button>
               <p className='text-center text-md text-gray-700'>Already have an account? <Link to='/login' className='text-orange-500'>Login</Link> </p>
         </form>
