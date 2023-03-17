@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../AuthContext'
+import { db } from '../firebase'
+import { collection, addDoc } from 'firebase/firestore'
 
 export default function Signup() {
 
@@ -10,7 +12,7 @@ export default function Signup() {
     const [error, setError] = useState()
     const [loading, setLoading] = useState()
     
-    const { signup } = useAuth()
+    const { signup, currentUser } = useAuth()
     const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
@@ -24,7 +26,14 @@ export default function Signup() {
         setError('')
         setLoading(true)
         await signup(email, password)
+
+        const docRef = await addDoc(collection(db, 'users'), {
+          uid: currentUser.uid,
+          email: currentUser.email
+        })
+        console.log("Document written with ID: ", docRef.id);
         navigate('/dashboard')
+        
       } catch(e) {
         setError(e.message)
       }

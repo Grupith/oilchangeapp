@@ -29,7 +29,7 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs }) {
       </nav>
       <h1 className='text-2xl font-bold mx-10 mt-5'>My Oil Changes</h1>
       <div className='overflow-auto bg-gray-200 flex flex-wrap'>
-        {oilLogs.map((log) => <Card onDelete={() => handleDelete(log.id)} key={log.id} date={log.date} miles={log.miles} oiltype={log.oiltype} price={log.price} />)}
+        {oilLogs.map((log) => <Card onDelete={() => handleDelete(log.id)} key={log.id} logNumber={log.logNumber} date={log.date} miles={log.miles} oiltype={log.oiltype} price={log.price} />)}
       </div>
     </div>
   )

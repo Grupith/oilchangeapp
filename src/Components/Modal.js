@@ -15,9 +15,11 @@ export default function Modal({ setIsModalOpen, oilLogs, setOilLogs }) {
             e.preventDefault()
 
             const formatedDate = `${selectedDate.getMonth() + 1}/${selectedDate.getDate()}/${selectedDate.getFullYear()}`
+            const logNumber = oilLogs.length + 1
 
             const newOilLog = {
                 id: uuidv4(),
+                logNumber: logNumber,
                 date: formatedDate,
                 miles: miles,
                 oiltype: oiltype,
@@ -32,6 +34,7 @@ export default function Modal({ setIsModalOpen, oilLogs, setOilLogs }) {
         <div className='bg-white p-10 rounded-md space-y-5'>
             <form onSubmit={handleSubmit}>
                 <h2 className='text-3xl text-center pb-8 font-bold'>Create an Oil Log</h2>
+                {/* <img className='rounded-xl w-48 m-auto mb-5' src={'https://cdnb.artstation.com/p/assets/images/images/020/069/649/large/amal-kumar-05-render.jpg?1566240380'} alt='pouring oil into a car' /> */}
                 <div className='space-y-6'>
                     <div>
                         <label htmlFor='date' className='text-lg'>Date</label>
