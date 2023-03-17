@@ -1,7 +1,10 @@
+import { addDoc, collection } from 'firebase/firestore';
 import React, { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import { v4 as uuidv4 } from 'uuid';
+import { db } from '../firebase'
+import { useAuth } from '../AuthContext'
 
 
 export default function Modal({ setIsModalOpen, oilLogs, setOilLogs }) {
@@ -10,8 +13,10 @@ export default function Modal({ setIsModalOpen, oilLogs, setOilLogs }) {
         const [miles, setMiles] = useState()
         const [oiltype, setOiltype] = useState()
         const [price, setPrice] = useState()
+
+        const { currentUser } = useAuth()
         
-        const handleSubmit = (e) => {
+        const handleSubmit = async (e) => {
             e.preventDefault()
 
             const formatedDate = `${selectedDate.getMonth() + 1}/${selectedDate.getDate()}/${selectedDate.getFullYear()}`
@@ -19,14 +24,23 @@ export default function Modal({ setIsModalOpen, oilLogs, setOilLogs }) {
 
             const newOilLog = {
                 id: uuidv4(),
+                userId: currentUser.uid,
                 logNumber: logNumber,
                 date: formatedDate,
                 miles: miles,
                 oiltype: oiltype,
                 price: price
             }
-            setOilLogs([...oilLogs, newOilLog])
-            setIsModalOpen(false)
+
+            try {
+                const docRef = await addDoc(collection(db, 'oilLogs'), newOilLog)
+                console.log('document written with ID: ', docRef)
+                setOilLogs([...oilLogs, newOilLog])
+                setIsModalOpen(false)
+
+            } catch(e) {
+                console.error('Error adding document: ', e)
+            }
         }
 
   return (

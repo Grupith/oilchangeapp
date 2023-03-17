@@ -26,17 +26,28 @@ export default function Signup() {
         setError('')
         setLoading(true)
         await signup(email, password)
+        // this is not creating users in firestore
+        if (!currentUser) {
+          console.log('current user is not active')
+        } else {
+          console.log('current user is active!')
+        }
 
-        const docRef = await addDoc(collection(db, 'users'), {
-          uid: currentUser.uid,
-          email: currentUser.email
-        })
-        console.log("Document written with ID: ", docRef.id);
-        navigate('/dashboard')
-        
+        if (currentUser) {
+          const docRef = await addDoc(collection(db, 'users'), {
+            uid: currentUser.uid,
+            email: currentUser.email
+          })
+          console.log("Document written with ID: ", docRef.id)
+        } else {
+          console.log("currentUser is null or undefined")
+        }
+
       } catch(e) {
         setError(e.message)
+        console.error(e)
       }
+      navigate('/dashboard')
       setLoading(false)
     }
 
