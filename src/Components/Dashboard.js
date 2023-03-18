@@ -20,7 +20,7 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs }) {
   }, [setOilLogs]) 
 
   useEffect(() => {
-    const fetchOilLogs =  async () => {
+    const fetchOilLogs = async () => {
       setLoading(true)
       const oilLogsRef = collection(db, 'oilLogs')
       const q = query(oilLogsRef, where('userId', '==', currentUser.uid))
@@ -56,12 +56,12 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs }) {
       <h1 className='text-2xl font-bold mx-10 mt-5'>My Oil Changes</h1>
       {!loading ? <div className='overflow-auto bg-gray-200 flex flex-wrap'>
         {oilLogs.map((log) => <Card onDelete={() => handleDelete(log.id)} key={log.id} logNumber={log.logNumber} date={log.date} miles={log.miles} oiltype={log.oiltype} price={log.price} />)}
-      </div> : <div class="flex items-center justify-center pt-40">
+      </div> : <div className="flex items-center justify-center pt-40">
                   <div
-                    class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                    className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
                     role="status">
                     <span
-                      class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+                      className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
                       >Loading...</span
                     >
                   </div>

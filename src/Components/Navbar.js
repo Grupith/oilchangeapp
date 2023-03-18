@@ -12,7 +12,7 @@ export default function Navbar() {
     const handleLogout = async () => {
         try {
             await logout()
-            navigate('/login')
+            navigate('/')
             setShowDropdown(false)
         } catch(e) {
             console.error(e)

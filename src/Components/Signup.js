@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../AuthContext'
 import { db } from '../firebase'
 import { collection, addDoc } from 'firebase/firestore'
+import { useAuth } from '../AuthContext'
 
 export default function Signup() {
 
@@ -15,42 +15,46 @@ export default function Signup() {
     const { signup, currentUser } = useAuth()
     const navigate = useNavigate()
 
-    const handleSubmit = async (e) => {
-      e.preventDefault()
-
-      if (password !== confirmPassword) {
-        return setError('Passwords do not match')
-      }
-
-      try {
-        setError('')
-        setLoading(true)
-        await signup(email, password)
-        // this is not creating users in firestore
-        if (!currentUser) {
-          console.log('current user is not active')
-        } else {
-          console.log('current user is active!')
-        }
-
-        if (currentUser) {
+    useEffect(() => {
+      const createUserCollection = async () => {
+        try {
           const docRef = await addDoc(collection(db, 'users'), {
             uid: currentUser.uid,
             email: currentUser.email
           })
-          console.log("Document written with ID: ", docRef.id)
-        } else {
-          console.log("currentUser is null or undefined")
+          console.log("This Document was written with ID: current user was true ", docRef.id)
+          navigate('/dashboard')
+        } catch (e) {
+          console.error('Error creating user collection', e)
         }
-
-      } catch(e) {
-        setError(e.message)
-        console.error(e)
       }
-      navigate('/dashboard')
+    
+      if (currentUser) {
+        createUserCollection()
+      }
+    }, [currentUser, navigate])
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault()
+      // confirm if passwords match 
+      if (password !== confirmPassword) {
+        return setError('Passwords do not match')
+      }
+      // sign up user to firebase auth and create a users collection with email/uid 
+      try {
+        setError('')
+        setLoading(true)
+        await signup(email, password)
+      } catch (e) {
+        setError(e.message);
+        console.error('catch error',e)
+      }
       setLoading(false)
+      console.log(currentUser)
     }
 
+   
+    
   return (
     <div className='bg-gray-100 h-screen flex justify-center'>
       {!loading ? <div className='bg-white max-w-sm m-auto border rounded-xl p-12 shadow-sm'>
@@ -69,15 +73,15 @@ export default function Signup() {
                 <input onChange={e => setConfirmPassword(e.target.value)} required type='password' name='confirmPassword' autoComplete='off' className='border border-gray-300 rounded-md text-lg w-full px-3 py-1 bg-gray-100' />
               </div>
               {error && <p className='flex justify-center text-red-500 italic'>{error}</p>}
-              <button type='submit' className='text-lg text-white bg-orange-500 rounded-md py-2 w-full'>Create Account</button>
-              <p className='text-center text-md text-gray-700'>Already have an account? <Link to='/login' className='text-orange-500'>Login</Link> </p>
+              <button type='submit' className='text-lg text-white bg-blue-500 rounded-md py-2 w-full'>Create Account</button>
+              <p className='text-center text-md text-gray-700'>Already have an account? <Link to='/login' className='text-blue-500'>Login</Link> </p>
         </form>
-      </div> : <div class="flex items-center justify-center">
+      </div> : <div className="flex items-center justify-center">
                   <div
-                    class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                    className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
                     role="status">
                     <span
-                      class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+                      className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
                       >Loading...</span
                     >
                   </div>

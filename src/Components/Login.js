@@ -39,15 +39,15 @@ export default function Login() {
                 <input onChange={e => setPassword(e.target.value)} required type='password' name='Password' autoComplete='off' className='border border-gray-300 rounded-md text-lg w-full px-3 py-1 bg-gray-100' />
               </div>
               {error && <p className='flex justify-center text-red-500 italic'>{error}</p>}
-              <button type='submit' className='text-lg text-white bg-orange-500 rounded-md py-2 w-full'>Login</button>
-              <p className='text-center text-md text-gray-700'>Don't have an account? <Link to='/signup' className='text-orange-500'>Sign Up</Link> </p>
+              <button type='submit' className='text-lg text-white bg-blue-500 rounded-md py-2 w-full'>Login</button>
+              <p className='text-center text-md text-gray-700'>Don't have an account? <Link to='/signup' className='text-blue-500'>Sign Up</Link> </p>
         </form>
-      </div> : <div class="flex items-center justify-center">
+      </div> : <div className="flex items-center justify-center">
                   <div
-                    class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                    className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
                     role="status">
                     <span
-                      class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+                      className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
                       >Loading...</span
                     >
                   </div>
