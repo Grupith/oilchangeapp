@@ -15,6 +15,7 @@ export default function Signup() {
     const { signup, currentUser } = useAuth()
     const navigate = useNavigate()
 
+    // Create a users collection and document when the user signs up
     useEffect(() => {
       const createUserCollection = async () => {
         try {
@@ -22,25 +23,25 @@ export default function Signup() {
             uid: currentUser.uid,
             email: currentUser.email
           })
-          console.log("This Document was written with ID: current user was true ", docRef.id)
+          console.log("This Document was written with ID: ", docRef.id)
           navigate('/dashboard')
-        } catch (e) {
+        } catch(e) {
           console.error('Error creating user collection', e)
         }
       }
-    
       if (currentUser) {
-        createUserCollection()
+        setLoading(true)
+        createUserCollection().finally(() => setLoading(false))
       }
     }, [currentUser, navigate])
   
     const handleSubmit = async (e) => {
       e.preventDefault()
-      // confirm if passwords match 
+      // Confirm if passwords match 
       if (password !== confirmPassword) {
         return setError('Passwords do not match')
       }
-      // sign up user to firebase auth and create a users collection with email/uid 
+      // Sign up user to firebase auth
       try {
         setError('')
         setLoading(true)
@@ -49,11 +50,7 @@ export default function Signup() {
         setError(e.message);
         console.error('catch error',e)
       }
-      setLoading(false)
-      console.log(currentUser)
     }
-
-   
     
   return (
     <div className='bg-gray-100 h-screen flex justify-center'>

@@ -37,7 +37,6 @@ export default function Modal({ setIsModalOpen, oilLogs, setOilLogs }) {
                 console.log('document written with ID: ', docRef)
                 setOilLogs([...oilLogs, newOilLog])
                 setIsModalOpen(false)
-                console.log('user created a doc', currentUser.uid)
 
             } catch(e) {
                 console.error('Error adding document: ', e)

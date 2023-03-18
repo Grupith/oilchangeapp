@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { BsHouseFill, BsBookmarkFill, BsTrash2Fill } from 'react-icons/bs'
 import Card from './Card'
-import {collection, query, where, getDocs} from 'firebase/firestore'
+import {collection, query, where, getDocs, deleteDoc, doc} from 'firebase/firestore'
 import { db } from '../firebase'
 import { useAuth } from '../AuthContext'
 
@@ -10,15 +10,23 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs }) {
   const { currentUser } = useAuth()
   const [loading, setLoading] = useState(false)
 
-  const handleDelete = (id) => {
-    const updatedLogs = oilLogs.filter((log) => log.id !== id)
-    setOilLogs(updatedLogs)
+  // This does not work, maybe use the match id of card being clicked to the id of the document?
+  const handleDelete = async (id) => {
+    try {
+      await deleteDoc(doc(db, 'oilLogs', id));
+      const updatedLogs = oilLogs.filter((log) => log.id !== id);
+      setOilLogs(updatedLogs);
+    } catch (error) {
+      console.error("Error removing document: ", error);
+    }
   }
-
+  
+  // This avoids multiple re-renders from the children in the callback
   const setOilLogsCallback = useCallback((oilLogsArray) => {
     setOilLogs(oilLogsArray)
   }, [setOilLogs]) 
 
+  // Fetch Oillogs collection from firestore database
   useEffect(() => {
     const fetchOilLogs = async () => {
       setLoading(true)
