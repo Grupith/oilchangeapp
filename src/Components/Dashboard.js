@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { BsHouseFill, BsBookmarkFill, BsTrash2Fill } from 'react-icons/bs'
 import Card from './Card'
-import {collection, query, where, getDocs, deleteDoc, doc} from 'firebase/firestore'
+import {collection, query, where, getDocs, deleteDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 import { useAuth } from '../AuthContext'
 
@@ -12,12 +12,21 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs }) {
 
   // This does not work, maybe use the match id of card being clicked to the id of the document?
   const handleDelete = async (id) => {
+    console.log('id passed into the handleDelete', id)
     try {
-      await deleteDoc(doc(db, 'oilLogs', id));
+      // Find the document with where the id equals the log.id
+      const oilLogsRef = collection(db, 'oilLogs')     
+      const q = query(oilLogsRef, where('id', '==', id))
+      const querySnapshot = await getDocs(q)
+      // Get the first doc from the query 
+      const docSnapshot = querySnapshot.docs[0]
+      await deleteDoc(docSnapshot.ref)
+      // filter the updated logs
       const updatedLogs = oilLogs.filter((log) => log.id !== id);
       setOilLogs(updatedLogs);
     } catch (error) {
       console.error("Error removing document: ", error);
+      console.log(error)
     }
   }
   
