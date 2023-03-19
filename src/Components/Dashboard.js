@@ -10,24 +10,25 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs }) {
   const { currentUser } = useAuth()
   const [loading, setLoading] = useState(false)
 
-  // This does not work, maybe use the match id of card being clicked to the id of the document?
   const handleDelete = async (id) => {
-    console.log('id passed into the handleDelete', id)
-    try {
-      // Find the document with where the id equals the log.id
-      const oilLogsRef = collection(db, 'oilLogs')     
-      const q = query(oilLogsRef, where('id', '==', id))
-      const querySnapshot = await getDocs(q)
-      // Get the first doc from the query 
-      const docSnapshot = querySnapshot.docs[0]
-      await deleteDoc(docSnapshot.ref)
-      // filter the updated logs
-      const updatedLogs = oilLogs.filter((log) => log.id !== id);
-      setOilLogs(updatedLogs);
-    } catch (error) {
-      console.error("Error removing document: ", error);
-      console.log(error)
-    }
+    setLoading(true)
+      try {
+        // Find the document with where the id equals the log.id
+        const oilLogsRef = collection(db, 'oilLogs')     
+        const q = query(oilLogsRef, where('id', '==', id))
+        const querySnapshot = await getDocs(q)
+        // Get the first doc from the query 
+        const docSnapshot = querySnapshot.docs[0]
+        await deleteDoc(docSnapshot.ref)
+        // filter the updated logs
+        const updatedLogs = oilLogs.filter((log) => log.id !== id);
+        setOilLogs(updatedLogs);
+      } catch (error) {
+        console.error("Error removing document: ", error);
+        console.log(error)
+      } finally {
+        setLoading(false)
+      }
   }
   
   // This avoids multiple re-renders from the children in the callback
@@ -35,7 +36,7 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs }) {
     setOilLogs(oilLogsArray)
   }, [setOilLogs]) 
 
-  // Fetch Oillogs collection from firestore database
+  // Fetch Oillogs collection from database and query the specific oilLog attached to user
   useEffect(() => {
     const fetchOilLogs = async () => {
       setLoading(true)
@@ -50,7 +51,6 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs }) {
     }
     fetchOilLogs()
   }, [currentUser, setOilLogsCallback])
-
 
   return (
     <div className='bg-gray-200 h-screen border-t'>
@@ -72,7 +72,7 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs }) {
       </nav>
       <h1 className='text-2xl font-bold mx-10 mt-5'>My Oil Changes</h1>
       {!loading ? <div className='overflow-auto bg-gray-200 flex flex-wrap'>
-        {oilLogs.map((log) => <Card onDelete={() => handleDelete(log.id)} key={log.id} logNumber={log.logNumber} date={log.date} miles={log.miles} oiltype={log.oiltype} price={log.price} />)}
+        {oilLogs.map((log) => <Card onDelete={() => handleDelete(log.id)} key={log.id} date={log.date} miles={log.miles} oiltype={log.oiltype} price={log.price} />)}
       </div> : <div className="flex items-center justify-center pt-40">
                   <div
                     className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"

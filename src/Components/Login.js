@@ -13,17 +13,15 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    
-    try {
-      setError('')
-      setLoading(true)
-      await login(email, password)
-      navigate('/dashboard')
-    } catch(e) {
-      setError(e.message)
-    }
+      try {
+        setError('')
+        setLoading(true)
+        await login(email, password)
+        navigate('/dashboard')
+      } catch(e) {
+        setError(e.message)
+      }
     setLoading(false)
-
   }
   return (
     <div className='bg-gray-100 h-screen flex justify-center'>

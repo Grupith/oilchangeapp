@@ -20,18 +20,15 @@ export default function Modal({ setIsModalOpen, oilLogs, setOilLogs }) {
             e.preventDefault()
 
             const formatedDate = `${selectedDate.getMonth() + 1}/${selectedDate.getDate()}/${selectedDate.getFullYear()}`
-            const logNumber = oilLogs.length + 1
 
             const newOilLog = {
                 id: uuidv4(),
                 userId: currentUser.uid,
-                logNumber: logNumber,
                 date: formatedDate,
                 miles: miles,
                 oiltype: oiltype,
                 price: price
             }
-
             try {
                 const docRef = await addDoc(collection(db, 'oilLogs'), newOilLog)
                 console.log('document written with ID: ', docRef)
@@ -48,7 +45,6 @@ export default function Modal({ setIsModalOpen, oilLogs, setOilLogs }) {
         <div className='bg-white p-10 rounded-md space-y-5'>
             <form onSubmit={handleSubmit}>
                 <h2 className='text-3xl text-center pb-8 font-bold'>Create an Oil Log</h2>
-                {/* <img className='rounded-xl w-48 m-auto mb-5' src={'https://cdnb.artstation.com/p/assets/images/images/020/069/649/large/amal-kumar-05-render.jpg?1566240380'} alt='pouring oil into a car' /> */}
                 <div className='space-y-6'>
                     <div>
                         <label htmlFor='date' className='text-lg'>Date</label>
@@ -73,7 +69,6 @@ export default function Modal({ setIsModalOpen, oilLogs, setOilLogs }) {
                 <button className='text-xl bg-blue-500 text-white py-1 px-6 mt-10 rounded-md shadow-md hover:scale-105 transition-all'>Submit</button>
             </form>
         </div>
-    
     </div>
   )
 }

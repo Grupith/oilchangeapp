@@ -38,18 +38,18 @@ export default function Signup() {
     const handleSubmit = async (e) => {
       e.preventDefault()
       // Confirm if passwords match 
-      if (password !== confirmPassword) {
-        return setError('Passwords do not match')
-      }
+        if (password !== confirmPassword) {
+          return setError('Passwords do not match')
+        }
       // Sign up user to firebase auth
-      try {
-        setError('')
-        setLoading(true)
-        await signup(email, password)
-      } catch (e) {
-        setError(e.message);
-        console.error('catch error',e)
-      }
+        try {
+          setError('')
+          setLoading(true)
+          await signup(email, password)
+        } catch (e) {
+          setError(e.message);
+          console.error('catch error',e)
+        }
     }
     
   return (
