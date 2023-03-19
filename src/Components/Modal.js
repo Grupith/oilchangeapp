@@ -1,4 +1,4 @@
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, Timestamp } from 'firebase/firestore';
 import React, { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
@@ -27,7 +27,8 @@ export default function Modal({ setIsModalOpen, oilLogs, setOilLogs }) {
                 date: formatedDate,
                 miles: miles,
                 oiltype: oiltype,
-                price: price
+                price: price,
+                dateCreated: Timestamp.now().toMillis()
             }
             try {
                 const docRef = await addDoc(collection(db, 'oilLogs'), newOilLog)

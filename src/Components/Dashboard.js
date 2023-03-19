@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { BsHouseFill, BsBookmarkFill, BsTrash2Fill } from 'react-icons/bs'
 import Card from './Card'
-import {collection, query, where, getDocs, deleteDoc } from 'firebase/firestore'
+import {collection, query, where, getDocs, deleteDoc, orderBy } from 'firebase/firestore'
 import { db } from '../firebase'
 import { useAuth } from '../AuthContext'
 
@@ -41,7 +41,7 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs }) {
     const fetchOilLogs = async () => {
       setLoading(true)
       const oilLogsRef = collection(db, 'oilLogs')
-      const q = query(oilLogsRef, where('userId', '==', currentUser.uid))
+      const q = query(oilLogsRef, where('userId', '==', currentUser.uid), orderBy('dateCreated'))
       const querySnapshot = await getDocs(q)
       const oilLogsArray = querySnapshot.docs.map((doc) => {
         return { id: doc.id, ...doc.data() }
@@ -51,6 +51,9 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs }) {
     }
     fetchOilLogs()
   }, [currentUser, setOilLogsCallback])
+
+  // Reverse array before displaying so the most recent one is displayed last
+  const reversedlogs = oilLogs.slice(0).reverse()
 
   return (
     <div className='bg-gray-200 h-screen border-t'>
@@ -72,7 +75,7 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs }) {
       </nav>
       <h1 className='text-2xl font-bold mx-10 mt-5'>My Oil Changes</h1>
       {!loading ? <div className='overflow-auto bg-gray-200 flex flex-wrap'>
-        {oilLogs.map((log) => <Card onDelete={() => handleDelete(log.id)} key={log.id} date={log.date} miles={log.miles} oiltype={log.oiltype} price={log.price} />)}
+        {reversedlogs.map((log) => <Card onDelete={() => handleDelete(log.id)} key={log.id} date={log.date} miles={log.miles} oiltype={log.oiltype} price={log.price} />)}
       </div> : <div className="flex items-center justify-center pt-40">
                   <div
                     className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
