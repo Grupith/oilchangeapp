@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { BsHouseFill, BsBookmarkFill, BsTrash2Fill } from 'react-icons/bs'
+import { BsBookmarkFill } from 'react-icons/bs'
 import Card from './Card'
 import {collection, query, where, getDocs, deleteDoc, orderBy } from 'firebase/firestore'
 import { db } from '../firebase'
@@ -56,36 +56,33 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs }) {
   const reversedlogs = oilLogs.slice(0).reverse()
 
   return (
-    <div className='bg-gray-200 h-screen border-t'>
-      <nav className='bg-white px-2'>
-        <ul className='flex items-center h-14 ml-4'>
-            <div className='flex justify-center space-x-1 items-center border-b border-gray-700 px-4 cursor-pointer h-14 transition-all'>
-                <BsHouseFill className='text-lg text-gray-700'/>
-                <li className='text-lg text-gray-700'>Dashboard</li>
-            </div>
-            <div onClick={() => setIsModalOpen(true)} className='flex justify-center space-x-1 items-center border-b border-transparent hover:border-gray-700 px-4 cursor-pointer h-14 transition-all'>
-                <BsBookmarkFill className='text-lg text-gray-700'/>
-                <li className='text-lg text-gray-700'>Create Oil Change</li>
-            </div>
-            <div className='flex justify-center space-x-1 items-center border-b border-transparent hover:border-gray-700 px-4 cursor-pointer h-14 transition-all'>
-                <BsTrash2Fill className='text-lg text-gray-700'/>
-                <li className='text-lg text-gray-700'>Reset List</li>
-            </div>
+    <div className='bg-gray-200 h-screen border-t flex'>
+      <aside className='bg-white w-1/6'>
+        <ul className='p-4'>
+          <div onClick={() => setIsModalOpen(true)} className='flex justify-center p-2 rounded-md items-center cursor-pointer hover:bg-gray-200 transition-all'>
+              <BsBookmarkFill className='text-lg text-gray-700 mr-1'/>
+              <li className='text-lg text-gray-700'>Create Oil Change</li>
+          </div>
         </ul>
-      </nav>
-      <h1 className='text-2xl font-bold mx-10 mt-5'>My Oil Changes</h1>
-      {!loading ? <div className='overflow-auto bg-gray-200 flex flex-wrap'>
-        {reversedlogs.map((log) => <Card onDelete={() => handleDelete(log.id)} key={log.id} date={log.date} miles={log.miles} oiltype={log.oiltype} price={log.price} />)}
-      </div> : <div className="flex items-center justify-center pt-40">
-                  <div
-                    className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-                    role="status">
-                    <span
-                      className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
-                      >Loading...</span
-                    >
-                  </div>
-        </div>}
+      </aside>
+      <div className='w-5/6'>
+        <div className='flex justify-center'>
+          <p className='text-lg text-blue-700'>Email: {currentUser && currentUser.email}</p>
+        </div>
+        <h1 className='text-2xl font-bold mx-10 mt-2'>My Oil Changes</h1>
+        {!loading ? <div className='overflow-auto bg-gray-200 flex flex-wrap'>
+          {reversedlogs.map((log) => <Card onDelete={() => handleDelete(log.id)} key={log.id} date={log.date} miles={log.miles} oiltype={log.oiltype} price={log.price} />)}
+        </div> : <div className="flex items-center justify-center pt-40">
+                    <div
+                      className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                      role="status">
+                      <span
+                        className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+                        >Loading...</span
+                      >
+                    </div>
+          </div>}
+      </div>
     </div>
   )
 }
