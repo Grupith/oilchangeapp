@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { db } from '../firebase'
-import { collection, addDoc } from 'firebase/firestore'
+import { collection, addDoc, getDocs, query, where } from 'firebase/firestore'
 import { useAuth } from '../AuthContext'
 
 export default function Signup() {
@@ -19,16 +19,23 @@ export default function Signup() {
     useEffect(() => {
       const createUserCollection = async () => {
         try {
-          const docRef = await addDoc(collection(db, 'users'), {
-            uid: currentUser.uid,
-            email: currentUser.email
-          })
-          console.log("This Document was written with ID: ", docRef.id)
+          // Check if user exists, if not then create a document
+          const usersRef = collection(db, 'users')
+          const querySnapshot = await getDocs(query(usersRef, where('uid', '==', currentUser.uid)))
+           if (querySnapshot.empty) {
+            const docRef = await addDoc(usersRef, {
+              uid: currentUser.uid,
+              email: currentUser.email
+            })
+            console.log("A user document was created in the collection users ", docRef)
+           } 
           navigate('/dashboard')
         } catch(e) {
           console.error('Error creating user collection', e)
+          console.log('Logged Error', e)
         }
       }
+
       if (currentUser) {
         setLoading(true)
         createUserCollection().finally(() => setLoading(false))
