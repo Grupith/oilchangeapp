@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Link , useNavigate } from 'react-router-dom'
 import { useAuth } from '../AuthContext'
-import { BsFillMoonStarsFill } from 'react-icons/bs'
+import { BsFillMoonStarsFill, BsMoonStars, BsFilterRight } from 'react-icons/bs'
 
-export default function Navbar() { 
+export default function Navbar({ darkmode, setDarkmode}) { 
 
     const { logout } = useAuth()
     const navigate = useNavigate()
@@ -39,7 +39,7 @@ export default function Navbar() {
     }, [])
 
   return (
-    <nav>
+    <nav className='dark:text-white dark:bg-gray-800'>
         <div className="relative flex items-center justify-between h-16 mx-10">
             <div className="flex items-center">
                 <div>
@@ -47,19 +47,16 @@ export default function Navbar() {
                 </div>
             </div>
             <div className="flex items-center">
-                <BsFillMoonStarsFill className='text-lg cursor-pointer mr-6'/>
-                <button onClick={toggleDropdown} className="p-1 rounded-full hover:text-gray-400 focus:text-gray-400 focus:outline-none">
-                    <span className="sr-only">Open user menu</span>
-                    <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
+                <div onClick={() => setDarkmode(!darkmode)}>
+                    {!darkmode ?<BsFillMoonStarsFill className='text-xl cursor-pointer mr-6'/> : <BsMoonStars className='text-xl cursor-pointer mr-6' />}
+                </div>
+                <BsFilterRight onClick={toggleDropdown} className='text-xl w-8 h-8 cursor-pointer' />
             {showDropdown && 
-                <div ref={dropdownRef} className="origin-top-right absolute right-0 mt-40 mr-4 w-48 rounded-md shadow-lg bg-white">
+                <div ref={dropdownRef} className="origin-top-right absolute right-0 mt-40 mr-4 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800">
                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                        <Link to='/dashboard' onClick={() => setShowDropdown(false)}className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer" role="menuitem">Dashboard</Link>
-                        <span className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 line-through cursor-pointer" role="menuitem">Settings</span>
-                        <span onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer" role="menuitem">Logout</span>
+                        <Link to='/dashboard' onClick={() => setShowDropdown(false)} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer dark:text-white dark:hover:bg-gray-700" role="menuitem">Dashboard</Link>
+                        <span className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 line-through cursor-pointer dark:text-white dark:hover:bg-gray-700" role="menuitem">Settings</span>
+                        <span onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer dark:text-white dark:hover:bg-gray-700" role="menuitem">Logout</span>
                     </div>
                 </div>
             }

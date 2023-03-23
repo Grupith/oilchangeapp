@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Card({ date, miles, oiltype, price, onDelete }) {
   return (
-    <div className='max-w-md border rounded-xl m-10 bg-white p-4 shadow-lg'>
+    <div className='max-w-md border rounded-xl m-10 bg-white p-4 shadow-lg dark:bg-gray-800 dark:border-none'>
         <img className='rounded-xl' src={'https://cdnb.artstation.com/p/assets/images/images/020/069/649/large/amal-kumar-05-render.jpg?1566240380'} alt='pouring oil into a car' />
         <div className='p-4'>
             <div className='flex justify-between'>

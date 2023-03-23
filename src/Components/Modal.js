@@ -43,28 +43,28 @@ export default function Modal({ setIsModalOpen, oilLogs, setOilLogs }) {
 
   return (
     <div onClick={(e) => {e.stopPropagation()}}>      
-        <div className='bg-white p-10 rounded-md space-y-5'>
+        <div className='bg-white p-10 rounded-md space-y-5 dark:bg-gray-800 dark:text-white'>
             <form onSubmit={handleSubmit}>
                 <h2 className='text-3xl text-center pb-8 font-bold'>Create an Oil Log</h2>
                 <div className='space-y-6'>
-                    <div>
+                    <div className='space-y-1'>
                         <label htmlFor='date' className='text-lg'>Date</label>
-                        <DatePicker name='date' className='border border-gray-300 rounded-md text-lg w-full px-3 py-1 bg-gray-100' selected={selectedDate} onChange={(date) => {
+                        <DatePicker name='date' className='border border-gray-300 rounded-md text-lg w-full px-3 py-1 bg-gray-100 dark:bg-gray-900 dark:border-none' selected={selectedDate} onChange={(date) => {
                             setSelectedDate(date)
                             console.log(selectedDate)
                         }} />
                     </div>
-                    <div>
+                    <div className='space-y-1'>
                         <label htmlFor='miles' className='text-lg'>Miles</label>
-                        <input onChange={e => setMiles(e.target.value)} required type='text' name='miles' autoComplete='off' className='border border-gray-300 rounded-md text-lg w-full px-3 py-1 bg-gray-100'  />
+                        <input onChange={e => setMiles(e.target.value)} required type='text' name='miles' autoComplete='off' className='border border-gray-300 rounded-md text-lg w-full px-3 py-1 bg-gray-100 dark:bg-gray-900 dark:border-none'  />
                     </div>
-                    <div>
+                    <div className='space-y-1'>
                         <label htmlFor='oiltype' className='text-lg'>Oil Type</label>
-                        <input onChange={e => setOiltype(e.target.value)} required type='text' name='oiltype' autoComplete='off' className='border border-gray-300 rounded-md text-lg w-full px-3 py-1 bg-gray-100'  />
+                        <input onChange={e => setOiltype(e.target.value)} required type='text' name='oiltype' autoComplete='off' className='border border-gray-300 rounded-md text-lg w-full px-3 py-1 bg-gray-100 dark:bg-gray-900 dark:border-none'  />
                     </div>
-                    <div>
+                    <div className='space-y-1'>
                         <label htmlFor='price' className='text-lg'>Price</label>
-                        <input onChange={e => setPrice(e.target.value)} required type='text' name='price' autoComplete='off' className='border border-gray-300 rounded-md text-lg w-full px-3 py-1 bg-gray-100'  />
+                        <input onChange={e => setPrice(e.target.value)} required type='text' name='price' autoComplete='off' className='border border-gray-300 rounded-md text-lg w-full px-3 py-1 bg-gray-100 dark:bg-gray-900 dark:border-none'  />
                     </div>
                 </div>
                 <button className='text-xl bg-blue-500 text-white py-1 px-6 mt-10 rounded-md shadow-md hover:scale-105 transition-all'>Submit</button>

@@ -56,12 +56,12 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs }) {
   const reversedlogs = oilLogs.slice(0).reverse()
 
   return (
-    <div className='bg-gray-200 h-screen border-t flex'>
-      <aside className='bg-white w-1/6'>
+    <div className='bg-gray-200 h-screen border-t border-dotted flex dark:bg-gray-900 dark:text-white dark:border-gray-600'>
+      <aside className='bg-white w-1/6 dark:bg-gray-800 dark:text-white shadow-lg dark:border-r dark:border-dotted dark:border-gray-600'>
         <ul className='p-4'>
-          <div onClick={() => setIsModalOpen(true)} className='flex justify-center p-2 rounded-md items-center cursor-pointer hover:bg-gray-200 transition-all'>
-              <BsBookmarkFill className='text-lg text-gray-700 mr-1'/>
-              <li className='text-lg text-gray-700'>Create Oil Change</li>
+          <div onClick={() => setIsModalOpen(true)} className='flex justify-center p-2 rounded-md items-center cursor-pointer hover:bg-gray-700 transition-all'>
+              <BsBookmarkFill className='text-xl mr-1'/>
+              <li className='text-lg'>Create Oil Change</li>
           </div>
         </ul>
       </aside>
@@ -70,7 +70,7 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs }) {
           <p className='text-lg text-blue-700'>Email: {currentUser && currentUser.email}</p>
         </div>
         <h1 className='text-2xl font-bold mx-10 mt-2'>My Oil Changes</h1>
-        {!loading ? <div className='overflow-auto bg-gray-200 flex flex-wrap'>
+        {!loading ? <div className='overflow-auto bg-gray-200 flex flex-wrap dark:bg-gray-900'>
           {reversedlogs.map((log) => <Card onDelete={() => handleDelete(log.id)} key={log.id} date={log.date} miles={log.miles} oiltype={log.oiltype} price={log.price} />)}
         </div> : <div className="flex items-center justify-center pt-40">
                     <div
