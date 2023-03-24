@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Link , useNavigate } from 'react-router-dom'
 import { useAuth } from '../AuthContext'
-import { BsFillMoonStarsFill, BsMoonStars, BsFilterRight, BsFilterLeft } from 'react-icons/bs'
+import { BsFillMoonStarsFill, BsMoonStars, BsPersonCircle, BsFilterLeft } from 'react-icons/bs'
 
 export default function Navbar({ darkmode, setDarkmode}) { 
 
@@ -39,19 +39,24 @@ export default function Navbar({ darkmode, setDarkmode}) {
     }, [])
 
   return (
-    <nav className='bg-white dark:text-white dark:bg-gray-800 fixed w-full border-b border-gray-300 dark:border-gray-600'>
+    <nav className='bg-white dark:text-white dark:bg-gray-800 fixed w-full border-b border-gray-200 dark:border-gray-600'>
         <div className="relative flex items-center justify-between h-16 mx-4">
             <div className="flex items-center">
                 <div className='flex items-center space-x-4'>
-                    <BsFilterLeft className='text-xl w-8 h-8 cursor-pointer'/>
+                    <button className='cursor-pointer hover:bg-gray-200 rounded-md p-1 dark:hover:bg-gray-700'>
+                        <BsFilterLeft className='w-8 h-8'/>
+                    </button>
                     <Link to='/' className="font-bold text-xl">TrackMyOilChange</Link>
                 </div>
+                    <input type='text' placeholder='Search' className='bg-gray-100 px-3 py-1 text-lg border rounded-md ml-14 dark:bg-gray-700 dark:border-gray-600'/>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center space-x-3 mr-2">
                 <div onClick={() => setDarkmode(!darkmode)}>
-                    {!darkmode ?<BsFillMoonStarsFill className='text-xl cursor-pointer mr-6'/> : <BsMoonStars className='text-xl cursor-pointer mr-6' />}
+                    {!darkmode ? <button className='cursor-pointer hover:bg-gray-200 rounded-md p-2 dark:hover:bg-gray-700'><BsFillMoonStarsFill className='w-5 h-5'/></button> : <button className='cursor-pointer hover:bg-gray-200 rounded-md p-2 dark:hover:bg-gray-700'><BsMoonStars className='w-5 h-5' /></button>}
                 </div>
-                <BsFilterRight onClick={toggleDropdown} className='text-xl w-8 h-8 cursor-pointer' />
+                <button className='cursor-pointer hover:bg-gray-200 rounded-md p-2 dark:hover:bg-gray-700'>
+                    <BsPersonCircle onClick={toggleDropdown} className='w-6 h-6' />
+                </button>
             {showDropdown && 
                 <div ref={dropdownRef} className="origin-top-right absolute right-0 mt-40 mr-4 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800">
                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">

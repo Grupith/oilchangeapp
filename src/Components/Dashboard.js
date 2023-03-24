@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { BsFillMoonStarsFill, BsMoonStars, BsFilterRight } from 'react-icons/bs'
 import Card from './Card'
 import {collection, query, where, getDocs, deleteDoc, orderBy } from 'firebase/firestore'
 import { db } from '../firebase'
@@ -58,17 +57,8 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs, darkmod
 
   return (
     <div className='bg-gray-200 h-screen flex dark:bg-gray-900 dark:text-white'>
-      <Sidebar />
-      <main className=''>
-        <nav className='flex items-center justify-between bg-white py-4 border-b fixed w-full'>
-          <input type='text' placeholder='Search...' className='text-xl p-1 bg-gray-200 ml-10'/>
-          <div className='flex items-center'> 
-            <div onClick={() => setDarkmode(!darkmode)}>
-              {!darkmode ?<BsFillMoonStarsFill className='text-xl cursor-pointer mr-6'/> : <BsMoonStars className='text-xl cursor-pointer mr-6' />}
-            </div>
-            <BsFilterRight className='text-xl w-8 h-8 cursor-pointer' />
-          </div>
-        </nav>
+      <Sidebar setIsModalOpen={setIsModalOpen} />
+      <main className='ml-64 w-full'>
         <div className='mt-20'>
           <div className='flex justify-center'>
             <p className='text-lg text-blue-700'>Email: {currentUser && currentUser.email}</p>
