@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Link , useNavigate } from 'react-router-dom'
 import { useAuth } from '../AuthContext'
-import { BsFillMoonStarsFill, BsMoonStars, BsFilterRight } from 'react-icons/bs'
+import { BsFillMoonStarsFill, BsMoonStars, BsFilterRight, BsFilterLeft } from 'react-icons/bs'
 
 export default function Navbar({ darkmode, setDarkmode}) { 
 
@@ -39,10 +39,11 @@ export default function Navbar({ darkmode, setDarkmode}) {
     }, [])
 
   return (
-    <nav className='dark:text-white dark:bg-gray-800'>
-        <div className="relative flex items-center justify-between h-16 mx-10">
+    <nav className='bg-white dark:text-white dark:bg-gray-800 fixed w-full border-b border-gray-300 dark:border-gray-600'>
+        <div className="relative flex items-center justify-between h-16 mx-4">
             <div className="flex items-center">
-                <div>
+                <div className='flex items-center space-x-4'>
+                    <BsFilterLeft className='text-xl w-8 h-8 cursor-pointer'/>
                     <Link to='/' className="font-bold text-xl">TrackMyOilChange</Link>
                 </div>
             </div>

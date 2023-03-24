@@ -77,7 +77,7 @@ export default function Signup() {
                 <input onChange={e => setConfirmPassword(e.target.value)} required type='password' name='confirmPassword' autoComplete='off' className='border border-gray-300 rounded-md text-lg w-full px-3 py-1 bg-gray-100 dark:bg-gray-900 dark:border-none' />
               </div>
               {error && <p className='flex justify-center text-red-500 italic'>{error}</p>}
-              <button type='submit' className='text-lg text-white bg-blue-500 rounded-md py-2 w-full'>Create Account</button>
+              <button type='submit' className='text-lg text-white bg-blue-500 rounded-md py-2 w-full hover:scale-105 transition-all'>Create Account</button>
               <p className='text-center text-md'>Already have an account? <Link to='/login' className='text-blue-500'>Login</Link> </p>
         </form>
       </div> : <div className="flex items-center justify-center">

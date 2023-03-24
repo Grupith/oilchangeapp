@@ -38,7 +38,7 @@ export default function Login() {
               <input onChange={e => setPassword(e.target.value)} required type='password' name='Password' autoComplete='off' className='border border-gray-300 rounded-md text-lg w-full px-3 py-1 bg-gray-100 dark:bg-gray-900 dark:border-none' />
             </div>
             {error && <p className='flex justify-center text-red-500 italic'>{error}</p>}
-            <button type='submit' className='text-lg text-white bg-blue-500 rounded-md py-2 w-full'>Login</button>
+            <button type='submit' className='text-lg text-white bg-blue-500 rounded-md py-2 w-full hover:scale-105 transition-all'>Login</button>
             <p className='text-center text-md'>Don't have an account? <Link to='/signup' className='text-blue-500'>Sign Up</Link> </p>
         </form>
       </div> : <div className="flex items-center justify-center">

@@ -56,33 +56,28 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs }) {
   const reversedlogs = oilLogs.slice(0).reverse()
 
   return (
-    <div className='bg-gray-200 h-screen border-t border-dotted flex dark:bg-gray-900 dark:text-white dark:border-gray-600'>
-      <aside className='bg-white w-1/6 dark:bg-gray-800 dark:text-white shadow-lg dark:border-r dark:border-dotted dark:border-gray-600'>
+    <div className='bg-gray-200 h-screen flex mt-16 dark:bg-gray-900 dark:text-white'>
+      <aside className='bg-white w-64 fixed h-screen border-t border-gray-300 dark:bg-gray-800 dark:text-white shadow-lg border-r dark:border-gray-600'>
         <ul className='p-4'>
-          <div onClick={() => setIsModalOpen(true)} className='flex justify-center p-2 rounded-md items-center cursor-pointer hover:bg-gray-700 transition-all'>
-              <BsBookmarkFill className='text-xl mr-1'/>
-              <li className='text-lg'>Create Oil Change</li>
+          <div onClick={() => setIsModalOpen(true)} className='flex justify-center p-2 rounded-md items-center cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition-all'>
+              <BsBookmarkFill className='text-xl mr-3 dark:text-gray-200'/>
+              <li className='text-lg dark:text-gray-200'>Create Oil Change</li>
           </div>
         </ul>
       </aside>
-      <div className='w-5/6'>
+      <main className='w-full ml-64'>
         <div className='flex justify-center'>
           <p className='text-lg text-blue-700'>Email: {currentUser && currentUser.email}</p>
         </div>
-        <h1 className='text-2xl font-bold mx-10 mt-2'>My Oil Changes</h1>
+        <h1 className='text-2xl font-bold mx-10 mt-2 dark:text-gray-200'>My Oil Changes</h1>
         {!loading ? <div className='overflow-auto bg-gray-200 flex flex-wrap dark:bg-gray-900'>
           {reversedlogs.map((log) => <Card onDelete={() => handleDelete(log.id)} key={log.id} date={log.date} miles={log.miles} oiltype={log.oiltype} price={log.price} />)}
         </div> : <div className="flex items-center justify-center pt-40">
-                    <div
-                      className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-                      role="status">
-                      <span
-                        className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
-                        >Loading...</span
-                      >
-                    </div>
+                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite] "role="status">
+                      <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+                  </div>
           </div>}
-      </div>
+      </main>
     </div>
   )
 }
