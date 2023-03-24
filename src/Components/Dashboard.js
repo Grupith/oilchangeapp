@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { BsBookmarkFill } from 'react-icons/bs'
+import { BsFillMoonStarsFill, BsMoonStars, BsFilterRight } from 'react-icons/bs'
 import Card from './Card'
 import {collection, query, where, getDocs, deleteDoc, orderBy } from 'firebase/firestore'
 import { db } from '../firebase'
 import { useAuth } from '../AuthContext'
+import Sidebar from './Sidebar'
 
-export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs }) {
+export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs, darkmode, setDarkmode }) {
 
   const { currentUser } = useAuth()
   const [loading, setLoading] = useState(false)
@@ -56,27 +57,31 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs }) {
   const reversedlogs = oilLogs.slice(0).reverse()
 
   return (
-    <div className='bg-gray-200 h-screen flex mt-16 dark:bg-gray-900 dark:text-white'>
-      <aside className='bg-white w-64 fixed h-screen border-t border-gray-300 dark:bg-gray-800 dark:text-white shadow-lg border-r dark:border-gray-600'>
-        <ul className='p-4'>
-          <div onClick={() => setIsModalOpen(true)} className='flex justify-center p-2 rounded-md items-center cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition-all'>
-              <BsBookmarkFill className='text-xl mr-3 dark:text-gray-200'/>
-              <li className='text-lg dark:text-gray-200'>Create Oil Change</li>
+    <div className='bg-gray-200 h-screen flex dark:bg-gray-900 dark:text-white'>
+      <Sidebar />
+      <main className=''>
+        <nav className='flex items-center justify-between bg-white py-4 border-b fixed w-full'>
+          <input type='text' placeholder='Search...' className='text-xl p-1 bg-gray-200 ml-10'/>
+          <div className='flex items-center'> 
+            <div onClick={() => setDarkmode(!darkmode)}>
+              {!darkmode ?<BsFillMoonStarsFill className='text-xl cursor-pointer mr-6'/> : <BsMoonStars className='text-xl cursor-pointer mr-6' />}
+            </div>
+            <BsFilterRight className='text-xl w-8 h-8 cursor-pointer' />
           </div>
-        </ul>
-      </aside>
-      <main className='w-full ml-64'>
-        <div className='flex justify-center'>
-          <p className='text-lg text-blue-700'>Email: {currentUser && currentUser.email}</p>
+        </nav>
+        <div className='mt-20'>
+          <div className='flex justify-center'>
+            <p className='text-lg text-blue-700'>Email: {currentUser && currentUser.email}</p>
+          </div>
+          <h1 className='text-2xl font-bold mx-10 mt-2 dark:text-gray-200'>My Oil Changes</h1>
+          {!loading ? <div className='overflow-auto bg-gray-200 flex flex-wrap dark:bg-gray-900'>
+            {reversedlogs.map((log) => <Card onDelete={() => handleDelete(log.id)} key={log.id} date={log.date} miles={log.miles} oiltype={log.oiltype} price={log.price} />)}
+          </div> : <div className="flex items-center justify-center pt-40">
+                      <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite] "role="status">
+                        <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+                    </div>
+            </div>}
         </div>
-        <h1 className='text-2xl font-bold mx-10 mt-2 dark:text-gray-200'>My Oil Changes</h1>
-        {!loading ? <div className='overflow-auto bg-gray-200 flex flex-wrap dark:bg-gray-900'>
-          {reversedlogs.map((log) => <Card onDelete={() => handleDelete(log.id)} key={log.id} date={log.date} miles={log.miles} oiltype={log.oiltype} price={log.price} />)}
-        </div> : <div className="flex items-center justify-center pt-40">
-                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite] "role="status">
-                      <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
-                  </div>
-          </div>}
       </main>
     </div>
   )
