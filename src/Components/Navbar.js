@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Link , useNavigate } from 'react-router-dom'
 import { useAuth } from '../AuthContext'
-import { BsFillMoonStarsFill, BsMoonStars, BsPersonCircle, BsFilterLeft } from 'react-icons/bs'
+import { BsFillMoonStarsFill, BsMoonStars, BsPersonCircle, BsFilterLeft, BsSearch } from 'react-icons/bs'
 
 export default function Navbar({ darkmode, setDarkmode}) { 
 
@@ -39,7 +39,7 @@ export default function Navbar({ darkmode, setDarkmode}) {
     }, [])
 
   return (
-    <nav className='bg-white dark:text-white dark:bg-gray-800 fixed w-full border-b border-gray-200 dark:border-gray-600'>
+    <nav className='bg-white dark:text-white dark:bg-gray-800 fixed w-full h-16 border-b border-gray-200 dark:border-gray-600'>
         <div className="relative flex items-center justify-between h-16 mx-4">
             <div className="flex items-center">
                 <div className='flex items-center space-x-4'>
@@ -48,7 +48,10 @@ export default function Navbar({ darkmode, setDarkmode}) {
                     </button>
                     <Link to='/' className="font-bold text-xl">TrackMyOilChange</Link>
                 </div>
-                    <input type='text' placeholder='Search' className='bg-gray-100 px-3 py-1 text-lg border rounded-md ml-14 dark:bg-gray-700 dark:border-gray-600'/>
+                    <form className='flex items-center ml-10 bg-gray-100 px-4 py-1 text-lg border rounded-lg space-x-3 focus-within:ring-2 focus-within:ring-blue-500 dark:bg-gray-700 dark:border-gray-600'>
+                        <BsSearch className='h-4 w-4' />
+                        <input type='text' placeholder='Search' className='w-72 text-lg bg-gray-100 rounded-sm outline-none dark:bg-gray-700'/>
+                    </form>
             </div>
             <div className="flex items-center space-x-3 mr-2">
                 <div onClick={() => setDarkmode(!darkmode)}>
