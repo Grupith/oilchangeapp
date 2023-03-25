@@ -60,7 +60,7 @@ export default function Navbar({ darkmode, setDarkmode, showSidebar, setShowSide
                     </button>
                     <Link to='/' className="font-bold text-xl">TrackMyOilChange</Link>
                 </div>
-                    <form className='flex items-center ml-10 bg-gray-100 px-4 py-1 text-lg border rounded-lg space-x-3 focus-within:ring-2 focus-within:ring-blue-500 dark:bg-gray-700 dark:border-gray-600'>
+                    <form className='hidden md:flex items-center ml-10 bg-gray-100 px-4 py-1 text-lg border rounded-lg space-x-3 focus-within:ring-2 focus-within:ring-blue-500 dark:bg-gray-700 dark:border-gray-600'>
                         <BsSearch className='h-4 w-4' />
                         <input type='text' placeholder='Search' className='w-72 text-lg bg-gray-100 rounded-sm outline-none dark:bg-gray-700'/>
                     </form>
@@ -75,9 +75,9 @@ export default function Navbar({ darkmode, setDarkmode, showSidebar, setShowSide
             {showDropdown && 
                 <div ref={dropdownRef} className="origin-top-right absolute right-0 mt-40 mr-4 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800">
                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                        <Link to='/dashboard' onClick={() => setShowDropdown(false)} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer dark:text-white dark:hover:bg-gray-700" role="menuitem">Dashboard</Link>
-                        <span className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 line-through cursor-pointer dark:text-white dark:hover:bg-gray-700" role="menuitem">Settings</span>
-                        <span onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer dark:text-white dark:hover:bg-gray-700" role="menuitem">Logout</span>
+                        <Link to='/dashboard' onClick={() => setShowDropdown(false)} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:rounded-md cursor-pointer dark:text-white dark:hover:bg-gray-700" role="menuitem">Dashboard</Link>
+                        <span className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:rounded-md line-through cursor-pointer dark:text-white dark:hover:bg-gray-700" role="menuitem">Settings</span>
+                        <span onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:rounded-md cursor-pointer dark:text-white dark:hover:bg-gray-700" role="menuitem">Logout</span>
                     </div>
                 </div>
             }

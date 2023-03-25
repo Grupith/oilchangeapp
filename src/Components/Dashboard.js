@@ -62,10 +62,7 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs, darkmod
         </div>
       <main className={`${showSidebar ? 'ml-64' : ''} w-full transition-all duration-300 ease-in-out`}>
         <div className='mt-20'>
-          <div className='flex ml-10'>
-            <p className='text-md text-blue-500'>Email: {currentUser && currentUser.email}</p>
-          </div>
-          <h1 className='text-2xl font-bold mx-10 mt-2 dark:text-gray-200'>My Oil Changes</h1>
+          <h1 className='text-2xl font-bold mx-10 mt-2 pt-2 dark:text-gray-200'>My Oil Changes</h1>
           {!loading ? <div className='overflow-auto bg-gray-200 flex flex-wrap dark:bg-gray-900'>
             {reversedlogs.map((log) => <Card onDelete={() => handleDelete(log.id)} key={log.id} date={log.date} miles={log.miles} oiltype={log.oiltype} price={log.price} />)}
           </div> : <div className="flex items-center justify-center pt-40">
