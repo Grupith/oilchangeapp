@@ -38,6 +38,18 @@ export default function Navbar({ darkmode, setDarkmode}) {
         }
     }, [])
 
+    const toggleDarkMode = () => {
+        setDarkmode(!darkmode)
+        localStorage.setItem('darkMode', JSON.stringify(!darkmode))
+    }
+
+    useEffect(() => {
+        const userPreference = localStorage.getItem('darkMode')
+        if (userPreference !== null) {
+            setDarkmode(JSON.parse(userPreference))
+        }
+    }, [setDarkmode])
+
   return (
     <nav className='bg-white dark:text-white dark:bg-gray-800 fixed w-full h-16 border-b border-gray-200 dark:border-gray-600'>
         <div className="relative flex items-center justify-between h-16 mx-4">
@@ -54,7 +66,7 @@ export default function Navbar({ darkmode, setDarkmode}) {
                     </form>
             </div>
             <div className="flex items-center space-x-3 mr-2">
-                <div onClick={() => setDarkmode(!darkmode)}>
+                <div onClick={toggleDarkMode}>
                     {!darkmode ? <button className='cursor-pointer hover:bg-gray-200 rounded-md p-2 dark:hover:bg-gray-700'><BsFillMoonStarsFill className='w-5 h-5'/></button> : <button className='cursor-pointer hover:bg-gray-200 rounded-md p-2 dark:hover:bg-gray-700'><BsMoonStars className='w-5 h-5' /></button>}
                 </div>
                 <button className='cursor-pointer hover:bg-gray-200 rounded-md p-2 dark:hover:bg-gray-700'>
