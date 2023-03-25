@@ -1,15 +1,20 @@
 import React from 'react'
 import { BsBookmarkFill } from "react-icons/bs";
+import { useAuth } from '../AuthContext';
 
 export default function Sidebar({ setIsModalOpen }) {
+  const { currentUser } = useAuth()
   return (
-    <aside className='bg-white w-64 fixed h-screen border-r border-t shadow-md mt-16 z-20 border-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600'>
+    <aside className='bg-white w-64 fixed h-screen border-r border-t shadow-md pt-16 z-20 flex flex-col justify-between border-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600'>
         <ul className='p-3'>
           <div onClick={() => setIsModalOpen(true)} className='flex justify-center py-2 rounded-md items-center cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition-all'>
               <BsBookmarkFill className='text-lg mr-3 dark:text-gray-200'/>
               <span className='text-lg dark:text-gray-200'>Create Oil Change</span>
           </div>
         </ul>
+        <div className='flex justify-center mb-4'>
+            <p className='text-md text-blue-500'>Email: {currentUser && currentUser.email}</p>
+          </div>
       </aside>
   )
 }

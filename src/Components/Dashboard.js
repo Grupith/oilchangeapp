@@ -5,7 +5,7 @@ import { db } from '../firebase'
 import { useAuth } from '../AuthContext'
 import Sidebar from './Sidebar'
 
-export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs, darkmode, setDarkmode }) {
+export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs, darkmode, setDarkmode, showSidebar, setShowSidebar }) {
 
   const { currentUser } = useAuth()
   const [loading, setLoading] = useState(false)
@@ -57,11 +57,13 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs, darkmod
 
   return (
     <div className='bg-gray-200 h-screen flex dark:bg-gray-900 dark:text-white'>
-      <Sidebar setIsModalOpen={setIsModalOpen} />
-      <main className='ml-64 w-full'>
+        <div className={`transition-all absolute ease-in-out duration-300 z-10 ${showSidebar ? 'left-0' : '-left-64'}`}>
+            <Sidebar setIsModalOpen={setIsModalOpen} />
+        </div>
+      <main className={`${showSidebar ? 'ml-64' : ''} w-full transition-all duration-300 ease-in-out`}>
         <div className='mt-20'>
-          <div className='flex justify-center'>
-            <p className='text-lg text-blue-700'>Email: {currentUser && currentUser.email}</p>
+          <div className='flex ml-10'>
+            <p className='text-md text-blue-500'>Email: {currentUser && currentUser.email}</p>
           </div>
           <h1 className='text-2xl font-bold mx-10 mt-2 dark:text-gray-200'>My Oil Changes</h1>
           {!loading ? <div className='overflow-auto bg-gray-200 flex flex-wrap dark:bg-gray-900'>

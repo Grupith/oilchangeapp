@@ -3,7 +3,7 @@ import { Link , useNavigate } from 'react-router-dom'
 import { useAuth } from '../AuthContext'
 import { BsFillMoonStarsFill, BsMoonStars, BsPersonCircle, BsFilterLeft, BsSearch } from 'react-icons/bs'
 
-export default function Navbar({ darkmode, setDarkmode}) { 
+export default function Navbar({ darkmode, setDarkmode, showSidebar, setShowSidebar }) { 
 
     const { logout } = useAuth()
     const navigate = useNavigate()
@@ -44,18 +44,18 @@ export default function Navbar({ darkmode, setDarkmode}) {
     }
 
     useEffect(() => {
-        const userPreference = localStorage.getItem('darkMode')
-        if (userPreference !== null) {
-            setDarkmode(JSON.parse(userPreference))
+        const themePreference = localStorage.getItem('darkMode')
+        if (themePreference !== null) {
+            setDarkmode(JSON.parse(themePreference))
         }
     }, [setDarkmode])
 
   return (
-    <nav className='bg-white dark:text-white dark:bg-gray-800 fixed w-full h-16 border-b border-gray-200 dark:border-gray-600'>
+    <nav className='bg-white dark:text-white dark:bg-gray-800 fixed w-full h-16 z-40 border-b border-gray-200 dark:border-gray-600'>
         <div className="relative flex items-center justify-between h-16 mx-4">
             <div className="flex items-center">
                 <div className='flex items-center space-x-4'>
-                    <button className='cursor-pointer hover:bg-gray-200 rounded-md p-1 dark:hover:bg-gray-700'>
+                    <button onClick={() => setShowSidebar(!showSidebar)} className='cursor-pointer hover:bg-gray-200 rounded-md p-1 dark:hover:bg-gray-700'>
                         <BsFilterLeft className='w-8 h-8'/>
                     </button>
                     <Link to='/' className="font-bold text-xl">TrackMyOilChange</Link>
