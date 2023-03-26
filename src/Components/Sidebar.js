@@ -6,7 +6,7 @@ export default function Sidebar({ setIsModalOpen }) {
   const { currentUser } = useAuth()
   return (
     <aside className='bg-white w-64 fixed h-screen border-r border-t shadow-md pt-16 z-20 flex flex-col justify-between border-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600'>
-        <ul className='p-3 space-y-2'>
+        <ul className='p-3 space-y-3'>
           <form className='visible md:hidden flex items-center bg-gray-100 px-4 py-1 mx-2 text-lg border rounded-lg space-x-3 focus-within:ring-2 focus-within:ring-blue-500 dark:bg-gray-700 dark:border-gray-600'>
               <BsSearch className='h-4 w-4' />
               <input type='text' placeholder='Search' className='w-full text-lg bg-gray-100 rounded-sm outline-none dark:bg-gray-700'/>
