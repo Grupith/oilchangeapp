@@ -56,14 +56,14 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs, darkmod
   const reversedlogs = oilLogs.slice(0).reverse()
 
   return (
-    <div className='bg-gray-200 h-screen flex dark:bg-gray-900 dark:text-white'>
+    <div className='flex h-screen bg-gray-200 dark:bg-gray-900 dark:text-white'>
         <div className={`transition-all absolute ease-in-out duration-300 z-10 ${showSidebar ? 'left-0' : '-left-64'}`}>
             <Sidebar setIsModalOpen={setIsModalOpen} />
         </div>
       <main className={`${showSidebar ? 'ml-64 blur-sm sm:blur-none' : ''} w-full transition-all duration-300 ease-in-out`}>
         <div className='mt-20'>
-          <h1 className='text-2xl font-bold mx-10 mt-2 pt-2 dark:text-gray-200'>My Oil Changes</h1>
-          {!loading ? <div className='overflow-auto bg-gray-200 flex flex-wrap dark:bg-gray-900'>
+          <h1 className='pt-2 mx-10 mt-2 text-2xl font-bold dark:text-gray-200'>My Oil Changes</h1>
+          {!loading ? <div className='flex flex-wrap overflow-auto bg-gray-200 dark:bg-gray-900'>
             {reversedlogs.map((log) => <Card onDelete={() => handleDelete(log.id)} key={log.id} date={log.date} miles={log.miles} oiltype={log.oiltype} price={log.price} />)}
           </div> : <div className="flex items-center justify-center pt-40">
                       <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite] "role="status">

@@ -19,8 +19,7 @@ function App() {
     <BrowserRouter>
       <div className={`font-Nunito overflow-x-hidden ${darkmode ? 'dark' : ''}`}>
       <Navbar darkmode={darkmode} setDarkmode={setDarkmode} showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
-        {isModalOpen && <div onClick={() => {setIsModalOpen(false)}} className='flex items-center justify-center fixed
-         inset-0 z-50 bg-black bg-opacity-50 backdrop-blur-sm'>
+        {isModalOpen && <div onClick={() => {setIsModalOpen(false)}} className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm'>
           <Modal setIsModalOpen={setIsModalOpen} oilLogs={oilLogs} setOilLogs={setOilLogs} />
         </div>}
         <Routes>

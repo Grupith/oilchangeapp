@@ -32,20 +32,20 @@ export default function Login() {
   }, [currentUser, navigate])
 
   return (
-    <div className='bg-gray-100 h-screen flex justify-center dark:bg-gray-900 dark:text-white'>
-      {!loading ? <div className='bg-white max-w-sm m-auto border rounded-xl p-12 shadow-sm dark:bg-gray-800 dark:border-none'>
+    <div className='flex justify-center h-screen bg-gray-100 dark:bg-gray-900 dark:text-white'>
+      {!loading ? <div className='max-w-sm p-12 m-auto bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-none'>
         <form onSubmit={handleSubmit} className='space-y-7'>
-          <h1 className='font-bold text-4xl text-center m-3'>Login</h1>
+          <h1 className='m-3 text-4xl font-bold text-center'>Login</h1>
             <div className='space-y-1'>
               <label htmlFor='Email' className='text-lg'>Email </label>
-              <input onChange={e => setEmail(e.target.value)} required type='email' name='Email' autoComplete='off' className='border border-gray-300 rounded-md text-lg w-full px-3 py-1 bg-gray-100 dark:bg-gray-900 dark:border-none'  />
+              <input onChange={e => setEmail(e.target.value)} required type='email' name='Email' autoComplete='off' className='w-full px-3 py-1 text-lg bg-gray-100 border border-gray-300 rounded-md dark:bg-gray-900 dark:border-none'  />
             </div>
             <div className='space-y-1'>
               <label htmlFor='Password' className='text-lg'>Password </label>
-              <input onChange={e => setPassword(e.target.value)} required type='password' name='Password' autoComplete='off' className='border border-gray-300 rounded-md text-lg w-full px-3 py-1 bg-gray-100 dark:bg-gray-900 dark:border-none' />
+              <input onChange={e => setPassword(e.target.value)} required type='password' name='Password' autoComplete='off' className='w-full px-3 py-1 text-lg bg-gray-100 border border-gray-300 rounded-md dark:bg-gray-900 dark:border-none' />
             </div>
-            {error && <p className='flex justify-center text-red-500 italic'>{error}</p>}
-            <button type='submit' className='text-lg text-white bg-blue-500 rounded-md py-2 w-full hover:scale-105 transition-all'>Login</button>
+            {error && <p className='flex justify-center italic text-red-500'>{error}</p>}
+            <button type='submit' className='w-full py-2 text-lg text-white transition-all bg-blue-500 rounded-md hover:scale-105'>Login</button>
             <p className='text-center text-md'>Don't have an account? <Link to='/signup' className='text-blue-500'>Sign Up</Link> </p>
         </form>
       </div> : <div className="flex items-center justify-center">
