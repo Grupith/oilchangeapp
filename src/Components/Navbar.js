@@ -8,6 +8,7 @@ export default function Navbar({ darkmode, setDarkmode, showSidebar, setShowSide
     const { logout } = useAuth()
     const navigate = useNavigate()
     const dropdownRef = useRef(null)
+    const buttonRef = useRef(null)
 
     const handleLogout = async () => {
         try {
@@ -26,7 +27,7 @@ export default function Navbar({ darkmode, setDarkmode, showSidebar, setShowSide
     }
 
     const handleClickOutside = (e) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+    if (dropdownRef.current && !dropdownRef.current.contains(e.target) && !buttonRef.current.contains(e.target)) {
             setShowDropdown(false);
         }
     }
@@ -69,7 +70,7 @@ export default function Navbar({ darkmode, setDarkmode, showSidebar, setShowSide
                 <div onClick={toggleDarkMode}>
                     {!darkmode ? <button className='cursor-pointer hover:bg-gray-200 rounded-md p-2 dark:hover:bg-gray-700'><BsFillMoonStarsFill className='w-5 h-5'/></button> : <button className='cursor-pointer hover:bg-gray-200 rounded-md p-2 dark:hover:bg-gray-700'><BsMoonStars className='w-5 h-5' /></button>}
                 </div>
-                <button className='cursor-pointer hover:bg-gray-200 rounded-md p-2 dark:hover:bg-gray-700'>
+                <button ref={buttonRef} className='cursor-pointer hover:bg-gray-200 rounded-md p-2 dark:hover:bg-gray-700'>
                     <BsPersonCircle onClick={toggleDropdown} className='w-6 h-6' />
                 </button>
             {showDropdown && 
