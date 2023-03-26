@@ -60,7 +60,7 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs, darkmod
         <div className={`transition-all absolute ease-in-out duration-300 z-10 ${showSidebar ? 'left-0' : '-left-64'}`}>
             <Sidebar setIsModalOpen={setIsModalOpen} />
         </div>
-      <main className={`${showSidebar ? 'ml-64' : ''} w-full transition-all duration-300 ease-in-out`}>
+      <main className={`${showSidebar ? 'ml-64 blur-sm sm:blur-none' : ''} w-full transition-all duration-300 ease-in-out`}>
         <div className='mt-20'>
           <h1 className='text-2xl font-bold mx-10 mt-2 pt-2 dark:text-gray-200'>My Oil Changes</h1>
           {!loading ? <div className='overflow-auto bg-gray-200 flex flex-wrap dark:bg-gray-900'>

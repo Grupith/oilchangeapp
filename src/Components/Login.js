@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../AuthContext'
 
@@ -8,7 +8,7 @@ export default function Login() {
     const [password, setPassword] = useState()
     const [error, setError] = useState()
     const [loading, setLoading] = useState()
-    const { login } = useAuth()
+    const { login, currentUser } = useAuth()
     const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
@@ -23,6 +23,13 @@ export default function Login() {
       }
     setLoading(false)
   }
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/dashboard')
+      console.log('User already logged in', currentUser.email)
+    }
+  }, [currentUser, navigate])
 
   return (
     <div className='bg-gray-100 h-screen flex justify-center dark:bg-gray-900 dark:text-white'>
