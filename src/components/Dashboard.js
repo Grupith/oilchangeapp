@@ -4,11 +4,13 @@ import {collection, query, where, getDocs, deleteDoc, orderBy } from 'firebase/f
 import { db } from '../firebase'
 import { useAuth } from '../AuthContext'
 import Sidebar from './Sidebar'
+import { Outlet, useLocation } from 'react-router-dom'
 
 export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs, darkmode, setDarkmode, showSidebar, setShowSidebar }) {
 
   const { currentUser } = useAuth()
   const [loading, setLoading] = useState(false)
+  const location = useLocation()
 
   const handleDelete = async (id) => {
     setLoading(true)
@@ -61,15 +63,18 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs, darkmod
             <Sidebar setIsModalOpen={setIsModalOpen} />
         </div>
       <main className={`${showSidebar ? 'ml-64 blur-sm sm:blur-none' : ''} w-full transition-all duration-300 ease-in-out`}>
-        <div className='mt-20'>
-          <h1 className='pt-2 mx-10 mt-2 text-2xl font-bold dark:text-gray-200'>My Oil Changes</h1>
-          {!loading ? <div className='flex flex-wrap overflow-auto bg-gray-200 dark:bg-gray-900'>
-            {reversedlogs.map((log) => <Card onDelete={() => handleDelete(log.id)} key={log.id} date={log.date} miles={log.miles} oiltype={log.oiltype} price={log.price} />)}
-          </div> : <div className="flex items-center justify-center pt-40">
-                      <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite] "role="status">
-                        <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
-                    </div>
-            </div>}
+        <div>
+          {location.pathname === '/dashboard/settings' ? <Outlet /> :
+          <div className='mt-16'>
+            <h1 className='pt-10 mx-10 text-2xl font-bold dark:text-gray-200'>My Oil Changes</h1>
+            {!loading ? <div className='flex flex-wrap overflow-auto bg-gray-200 dark:bg-gray-900'>
+              {reversedlogs.map((log) => <Card onDelete={() => handleDelete(log.id)} key={log.id} date={log.date} miles={log.miles} oiltype={log.oiltype} price={log.price} />)}
+            </div> : <div className="flex items-center justify-center pt-40">
+                        <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite] "role="status">
+                          <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+                      </div>
+              </div>}
+          </div>}
         </div>
       </main>
     </div>

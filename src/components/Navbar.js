@@ -77,7 +77,7 @@ export default function Navbar({ darkmode, setDarkmode, showSidebar, setShowSide
                 <div ref={dropdownRef} className="absolute right-0 w-48 mt-40 mr-4 origin-top-right bg-white rounded-md shadow-lg dark:bg-gray-800">
                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
                         <Link to='/dashboard' onClick={() => setShowDropdown(false)} className="block px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100 hover:rounded-md dark:text-white dark:hover:bg-gray-700" role="menuitem">Dashboard</Link>
-                        <span className="block px-4 py-2 text-sm text-gray-700 line-through cursor-pointer hover:bg-gray-100 hover:rounded-md dark:text-white dark:hover:bg-gray-700" role="menuitem">Settings</span>
+                        <Link to='/dashboard/settings' onClick={() => setShowDropdown(false)} className="block px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100 hover:rounded-md dark:text-white dark:hover:bg-gray-700" role="menuitem">Settings</Link>
                         <span onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100 hover:rounded-md dark:text-white dark:hover:bg-gray-700" role="menuitem">Logout</span>
                     </div>
                 </div>
