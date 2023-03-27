@@ -3,7 +3,7 @@ import { Link , useNavigate } from 'react-router-dom'
 import { useAuth } from '../AuthContext'
 import { BsFillMoonStarsFill, BsMoonStars, BsPersonCircle, BsFilterLeft, BsSearch } from 'react-icons/bs'
 
-export default function Navbar({ darkmode, setDarkmode, showSidebar, setShowSidebar }) { 
+export default function Navbar({ darkmode, setDarkmode, showSidebar, setShowSidebar, search, setSearch }) { 
 
     const { logout } = useAuth()
     const navigate = useNavigate()
@@ -61,9 +61,13 @@ export default function Navbar({ darkmode, setDarkmode, showSidebar, setShowSide
                     </button>
                     <Link to='/' className="text-xl font-bold">TrackMyOilChange</Link>
                 </div>
-                    <form className='items-center hidden px-4 py-1 ml-10 space-x-3 text-lg bg-gray-100 border rounded-lg md:flex focus-within:ring-2 focus-within:ring-blue-500 dark:bg-gray-700 dark:border-gray-600'>
+                    <form onSubmit={(e) => {
+                        e.preventDefault()
+                        setSearch('')
+                        e.target.reset()
+                    }} className='items-center hidden px-4 py-1 ml-10 space-x-3 text-lg bg-gray-100 border rounded-lg md:flex focus-within:ring-2 focus-within:ring-blue-500 dark:bg-gray-700 dark:border-gray-600'>
                         <BsSearch className='w-4 h-4' />
-                        <input type='text' placeholder='Search' className='text-lg bg-gray-100 rounded-sm outline-none w-72 dark:bg-gray-700'/>
+                        <input onChange={(e) => setSearch(e.target.value)} type='text' placeholder='Search' className='text-lg bg-gray-100 rounded-sm outline-none w-72 dark:bg-gray-700'/>
                     </form>
             </div>
             <div className="flex items-center mr-2 space-x-3">

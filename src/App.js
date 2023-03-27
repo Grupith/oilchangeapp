@@ -5,7 +5,6 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import PrivateRoute from './components/PrivateRoute'
 import LandingPage from './components/LandingPage'
-import Navbar from './components/Navbar'
 import Modal from './components/Modal'
 import DashboardSettings from './components/DashboardSettings'
 import EditCard from './components/EditCard'
@@ -20,7 +19,6 @@ function App() {
   return (
     <BrowserRouter>
       <div className={`font-Nunito overflow-x-hidden ${darkmode ? 'dark' : ''}`}>
-      <Navbar darkmode={darkmode} setDarkmode={setDarkmode} showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
         {isModalOpen && <div onClick={() => {setIsModalOpen(false)}} className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm'>
           <Modal setIsModalOpen={setIsModalOpen} oilLogs={oilLogs} setOilLogs={setOilLogs} />
         </div>}
