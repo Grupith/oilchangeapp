@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { BsGearFill } from 'react-icons/bs'
+import { Link } from 'react-router-dom'
 
 export default function Card({ date, miles, oiltype, price, onDelete }) {
 
@@ -37,7 +38,7 @@ export default function Card({ date, miles, oiltype, price, onDelete }) {
                   </button>
                   {showCardSettings && <div ref={dropdownRef} className="absolute z-40 w-48 mt-40 mr-4 bg-white rounded-md shadow-lg right-5 dark:bg-gray-800 dark:border dark:border-gray-600">
                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                        <span className="block px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100 hover:rounded-md dark:text-white dark:hover:bg-gray-700" role="menuitem">Edit Card</span>
+                        <Link to='editcard' className="block px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100 hover:rounded-md dark:text-white dark:hover:bg-gray-700" role="menuitem">Edit Card</Link>
                         <span onClick={onDelete} className="block px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100 hover:rounded-md dark:text-white dark:hover:bg-gray-700" role="menuitem">Delete</span>
                     </div>
                   </div>}

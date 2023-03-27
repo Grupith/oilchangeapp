@@ -63,9 +63,8 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs, darkmod
             <Sidebar setIsModalOpen={setIsModalOpen} />
         </div>
       <main className={`${showSidebar ? 'ml-64 blur-sm sm:blur-none' : ''} w-full transition-all duration-300 ease-in-out`}>
-        <div>
-          {location.pathname === '/dashboard/settings' ? <Outlet /> :
-          <div className='mt-16'>
+          <Outlet />
+          {location.pathname === '/dashboard' && <div className='mt-16'>
             <h1 className='pt-10 mx-10 text-2xl font-bold dark:text-gray-200'>My Oil Changes</h1>
             {!loading ? <div className='flex flex-wrap overflow-auto bg-gray-200 dark:bg-gray-900'>
               {reversedlogs.map((log) => <Card onDelete={() => handleDelete(log.id)} key={log.id} date={log.date} miles={log.miles} oiltype={log.oiltype} price={log.price} />)}
@@ -75,7 +74,6 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs, darkmod
                       </div>
               </div>}
           </div>}
-        </div>
       </main>
     </div>
   )

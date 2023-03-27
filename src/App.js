@@ -8,6 +8,7 @@ import LandingPage from './components/LandingPage'
 import Navbar from './components/Navbar'
 import Modal from './components/Modal'
 import DashboardSettings from './components/DashboardSettings'
+import EditCard from './components/EditCard'
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           <Route exact path='/' element={<LandingPage />} />
           <Route path='/dashboard' element={<PrivateRoute><Dashboard setIsModalOpen={setIsModalOpen} oilLogs={oilLogs} setOilLogs={setOilLogs} darkmode={darkmode} setDarkmode={setDarkmode} showSidebar={showSidebar} setShowSidebar={setShowSidebar} /></PrivateRoute>}>
             <Route path='settings' element={<DashboardSettings />} />
+            <Route path='editcard' element={<EditCard />} />
           </Route>
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
