@@ -75,7 +75,7 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs, darkmod
       <Navbar darkmode={darkmode} setDarkmode={setDarkmode} showSidebar={showSidebar} setShowSidebar={setShowSidebar} search={search} setSearch={setSearch} />
         <div className='flex h-screen bg-gray-200 dark:bg-gray-900 dark:text-white'>
             <div className={`transition-all absolute ease-in-out duration-300 z-10 ${showSidebar ? 'left-0' : '-left-64'}`}>
-                <Sidebar setIsModalOpen={setIsModalOpen} />
+                <Sidebar setIsModalOpen={setIsModalOpen} search={search} setSearch={setSearch} />
             </div>
           <main className={`${showSidebar ? 'ml-64 blur-sm sm:blur-none' : ''} w-full transition-all duration-300 ease-in-out`}>
               <Outlet />
