@@ -19,7 +19,8 @@ export default function Login() {
         await login(email, password)
         navigate('/dashboard')
       } catch(e) {
-        setError(e.message)
+        const updateText = e.message.replace('Firebase:', '')
+          setError(updateText);
       }
     setLoading(false)
   }

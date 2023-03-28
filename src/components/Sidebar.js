@@ -22,7 +22,7 @@ export default function Sidebar({ setIsModalOpen, search, setSearch }) {
           </Link>
           <div onClick={() => setIsModalOpen(true)} className='flex items-center justify-center py-2 transition-all bg-gray-100 rounded-md cursor-pointer hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600'>
               <BsBookmarkFill className='mr-3 text-lg dark:text-gray-200'/>
-              <span className='text-lg dark:text-gray-200'>Create Oil Change</span>
+              <span className='text-lg dark:text-gray-200'>Create Oil Log</span>
           </div>
         </ul>
         <div className='flex justify-center mb-4'>

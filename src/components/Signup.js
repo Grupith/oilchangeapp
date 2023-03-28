@@ -54,9 +54,11 @@ export default function Signup() {
           setLoading(true)
           await signup(email, password)
         } catch (e) {
-          setError(e.message);
+          const updateText = e.message.replace('Firebase:', '')
+          setError(updateText);
           console.error('catch error',e)
         }
+      setLoading(false)
     }
     
   return (

@@ -13,7 +13,7 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs, darkmod
   const [loading, setLoading] = useState(false)
   const location = useLocation()
   const [search, setSearch] = useState('')
-  const [searchedLogs, setSearchedLogs] = useState([])
+  const [searchedLogs, setSearchedLogs] = useState(null)
 
   const handleDelete = async (id) => {
     setLoading(true)
@@ -56,19 +56,21 @@ export default function Dashboard({ setIsModalOpen, oilLogs, setOilLogs, darkmod
     }
     fetchOilLogs()
   }, [currentUser, setOilLogsCallback])
-
-  // Reverse array before displaying so the most recent one is displayed last (first)
-  // const reversedLogs = oilLogs.slice(0).reverse()
-
+  
   // Search for filtered results in search bar
   useEffect(() => {
     const filteredLogs = oilLogs.filter((log) => {
-      return log.miles.toLowerCase().includes(search.toString().toLowerCase()) || log.oiltype.toLowerCase().includes(search.toString().toLowerCase()) || log.date.toLowerCase().includes(search.toString().toLowerCase()) 
+      return log.miles.toLowerCase().includes(search.toString().toLowerCase()) || log.oiltype.toLowerCase().includes(search.toString().toLowerCase()) || log.date.toLowerCase().includes(search.toString().toLowerCase()) || log.price.toLowerCase().includes(search.toString().toLowerCase()) 
     })
     setSearchedLogs(filteredLogs)
+    console.log('logs are being filtered', filteredLogs)
   }, [search, oilLogs])
-
-  const logsToRender = searchedLogs.length > 0 ? searchedLogs : oilLogs;
+  
+  const reversedLogs = oilLogs.slice(0).reverse()
+  // console.log('reversedLogs',reversedLogs)
+  // reversedLogs is correct but something is going wrong in logsToRender
+  const logsToRender = searchedLogs ? searchedLogs : reversedLogs
+  console.log('logsToRender', logsToRender)
 
   return (
     <>
